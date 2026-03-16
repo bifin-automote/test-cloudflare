@@ -1,0 +1,31 @@
+{
+  "name": "test-cloudflare",
+  "version": "1.0.0",
+  "description": "Express API server in TypeScript backed by MongoDB",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc --project tsconfig.json",
+    "start": "node dist/src/index.js",
+    "test": "node --import tsx --test test/*.test.ts"
+  },
+  "keywords": [
+    "express",
+    "mongodb",
+    "typescript"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mongodb": "^6.20.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.5.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
