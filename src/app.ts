@@ -1,9 +1,6 @@
 import express, { NextFunction, Request, RequestHandler, Response } from "express";
 import { Collection, Document } from "mongodb";
 
-import { AppConfig } from "./config.js";
-import { getCollection } from "./db.js";
-
 export interface AppDependencies {
   getDocumentsCollection?: () => Promise<Collection<Document>>;
 }
@@ -23,14 +20,21 @@ export function createDocumentsHandler(
   };
 }
 
-export function createApp(config: AppConfig, dependencies: AppDependencies = {}) {
+export function createApp(dependencies: AppDependencies = {}) {
   const app = express();
 
   const getDocumentsCollection =
-    dependencies.getDocumentsCollection ?? (() => getCollection(config));
+    dependencies.getDocumentsCollection ??
+    (async () => {
+      const [{ loadConfig }, { getCollection }] = await Promise.all([
+        import("./config.js"),
+        import("./db.js"),
+      ]);
+
+      return getCollection(loadConfig());
+    });
 
   app.get("/documents", createDocumentsHandler(getDocumentsCollection));
-  app.post("/documents", createDocumentsHandler(getDocumentsCollection));
 
   app.use((error: Error, _request: Request, response: Response, _next: NextFunction) => {
     console.error("Request failed:", error);

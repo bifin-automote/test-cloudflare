@@ -4,9 +4,10 @@
   "description": "Express API server in TypeScript backed by MongoDB",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "tsx src/index.ts",
+    "dev": "wrangler dev",
     "build": "tsc --project tsconfig.json",
-    "start": "node dist/src/index.js",
+    "deploy": "wrangler deploy",
+    "cf-typegen": "wrangler types",
     "test": "node --import tsx --test test/*.test.ts"
   },
   "keywords": [
@@ -18,7 +19,6 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "mongodb": "^6.20.0"
   },
@@ -26,6 +26,7 @@
     "@types/express": "^5.0.6",
     "@types/node": "^25.5.0",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wrangler": "^4.73.0"
   }
 }
