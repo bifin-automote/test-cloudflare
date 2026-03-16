@@ -34,6 +34,10 @@ export function createApp(dependencies: AppDependencies = {}) {
       return getCollection(loadConfig());
     });
 
+  app.get("/", (request: Request, response: Response) => {
+    response.send("Hello World");
+  });
+
   app.get("/documents", createDocumentsHandler(getDocumentsCollection));
 
   app.use((error: Error, _request: Request, response: Response, _next: NextFunction) => {
